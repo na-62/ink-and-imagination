@@ -6,6 +6,6 @@ class Product(models.Model):
     description = models.TextField()
     media = models.TextField()
 
-    # @property
-    # def is_mood_strong(self):
-    #     return self.mood_intensity > 5
+    @property
+    def is_professional(self):
+        return self.price >= 500000
