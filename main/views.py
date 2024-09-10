@@ -8,7 +8,7 @@ def show_main(request):
         'class': 'PBP E',
         'product_name':'A5 Sketchbook',
         'product_price': 120000,
-        'product_description':'cold pressed, 60 pages',
+        'product_description':'hot pressed, 60 pages',
         'product_media':'watercolor, ink, graphite'
     }
 
