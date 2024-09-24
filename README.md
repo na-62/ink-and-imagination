@@ -77,17 +77,18 @@ CSRF atau cross-site request forgery adalah bentuk serangan yang seolah-olah mem
 
 Jawaban Tugas 4
 
-1. Apa itu Django `UserCreationForm`, dan jelaskan apa kelebihan dan kekurangannya?
-UserCreationForm adalah impor formulir bawaan yang memudahkan pembuatan formulir pendaftaran pengguna dalam aplikasi web. UserCreationForm memiliki beberapa kelebihan, seperti penggunaannya yang mudah sehingga tidak perlu menulis kode dari awal, aman, dan dapat disesuaikan dengan keinginan. Kekurangannya, UserCreationForm hanya menyediakan field username dan password, penampilan defaultnya kurang menarik, dan validasi bawaannya hanya untuk kata sandi dan terbatas
+1. Apa perbedaan antara HttpResponseRedirect() dan redirect()
+    - HttpResponseRedirect() digunakan untuk membuat respon HTTP yang mempertujukan pengguna ke URL yang ditentukan. Dalam menggunakannya dibutuhkan argumen URL.
+    - redirect() adalah fungsi shortcut yang mereturn HttpResponseRedirect. Fungsi ini lebih fleksibel karena bisa menggunakan nama URL, objek model, atau URL biasa sebagai argumen.
 
-2. Apa perbedaan antara autentikasi dan otorisasi dalam konteks Django, dan mengapa keduanya penting?
-Autentikasi adalah proses mengidentifikasi identitas pengguna, sementara otorisasi adalah proses pemberian izin oleh pihak yang memilikinya. Keduanya penting terutama untuk kontrol akses dan keamanan, agar data dan fitur hanya dapat diakses pengguna yang sah.
+2. Jelaskan cara kerja penghubungan model Product dengan User!
+Menghubungkan model Product dan User dilakukan dengan menggunakan ForeignKey, seperti pada potongan kode: user = models.ForeignKey(User, on_delete=models.CASCADE) yang menghubungkan satu product dengan satu user melalui sebuah relationship. Penggunaan ForeignKey berarti hubungannya satu-ke-banyak (one-to-many) antara dua model, yaitu satu user dan banyak product, yang berarti satu user bisa memiliki banyak product. on_delete=models.CASCADE berarti bila user dihapus maka product yang terhubung dengan user tersebut dihapus juga.
 
-3. Apa itu *cookies* dalam konteks aplikasi web, dan bagaimana Django menggunakan *cookies* untuk mengelola data sesi pengguna?
-Cookies adalah kumpulan data yang disimpan di perangkat user ketika mengunjungi suatu website. Django menggunakan cookies untuk mengelola sesi pengguna dengan menyimpan id sesi tersebut pada cookies. Session ID ini kemudian dipetakan ke suatu struktur data pada sisi web server. Dengan demikian, data sesi bisa tersimpan di cookies tanpa menyimpan informasi-informasi pengguna, ini lebih aman dan 'tepat' untuk cookies yang memiliki kapasitas kecil.
+3. Apa perbedaan antara authentication dan authorization, apakah yang dilakukan saat pengguna login? Jelaskan bagaimana Django mengimplementasikan kedua konsep tersebut.
+Authentication adalah proses mengidentifikasi identitas pengguna, sementara authorization adalah proses pemberian izin oleh pihak yang memilikinya. Saat pengguna login, proses yang terjadi adalah proses authentication. Django mengimplementasikan authentication pengguna dengan menyediakan form login yang memverifikasi kredensial user. Authorization dilakukan django dengan menggunakan permissions, groups, dan roles untuk mengontrol akses ke berbagai aplikasi.
 
-4. Apakah penggunaan *cookies* aman secara *default* dalam pengembangan web, atau apakah ada risiko potensial yang harus diwaspadai?
-Cookie itu sendiri tidak menyebabkan risiko, tetapi jika digunakan dengan tidak benar cookie bisa menimbulkan risiko keamanan. Cookie dapat menyimpan informasi sensitif yang bisa rentan terhadap akses tidak sah jika tidak dilindungi dengan baik. Cookies juga rentan terhadap Serangan Cross-Site Scripting (XSS), dimana penyerang menyisipkan kode berbahaya ke suatu situs dan mendapatkan cookies pengguna yang masuk ke situs tersebut. Selain itu, cookies juga dapat dimanfaatkan untuk serangan CSRF.
+4. Bagaimana Django mengingat pengguna yang telah login? Jelaskan kegunaan lain dari cookies dan apakah semua cookies aman digunakan?
+Cookies adalah kumpulan data yang disimpan di perangkat user ketika mengunjungi suatu website. Django menggunakan cookies untuk mengelola sesi pengguna dengan menyimpan id sesi tersebut pada cookies. Session ID ini kemudian dipetakan ke suatu struktur data pada sisi web server, yang memungkinkan django mengenali dan mengingat pengguna yang telah login. Selain mengelola session, cookies juga digunakan untuk menyimpan preferensi pengguna dan menyimpan informasi lain yang berguna untuk meningkatkan pengalaman di situs tersebut. Tidak semua cookies aman digunakan, cookies dapat menimbulkan risiko keamanan jika tidak digunakan dengan benar. Cookies rentan terhadap Serangan Cross-Site Scripting (XSS), dimana penyerang menyisipkan kode berbahaya ke suatu situs dan mendapatkan cookies pengguna yang masuk ke situs tersebut. Selain itu, cookies juga dapat dimanfaatkan untuk serangan CSRF.
 
 5. Jelaskan bagaimana cara kamu mengimplementasikan *checklist* di atas secara *step-by-step* (bukan hanya sekadar mengikuti tutorial).
 - Checklist yang pertama adalah mengimplementasikan fungsi registrasi, login, dan logout untuk memungkinkan pengguna untuk mengakses aplikasi sebelumnya dengan lancar. 
