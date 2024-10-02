@@ -117,3 +117,53 @@ Menghubungkan model Product pada User dilakukan dengan mengimport model User lal
     Menerapkan data last login dilakukan dengan menggunakan data dari cookies. Saya memulai dengan menambahkan import HttpResponseRedirect, reverse, dan datetime pada views.py dalam main. Setelah itu, saya sedikit mengubah fungsi login_user dengan menambahkan cookie yang bernama last_login untuk melihat kapan terakhir kali pengguna melakukan login. Hal itu saya lakukan dengan mengganti kode yang ada pada blok if form.is_valid() dan menambahkan last_login sebagai request.COOKIES['last_login'] pada show_main di views.py. Kemudian saya mengubah fungsi logout_user dengan menambahkan response.delete_cookie('last_login') untuk menghapus cookie saat pengguna logout. Terakhir, saya menambahkan kalimat sesi terakhir login dan datanya pada main.html untuk menampilkannya pada halaman main.
 
 - Untuk dua checklist terakhir, saya melengkapi README.md lalu melakukan add, commit, dan push ke github.
+
+
+===========================================================================
+
+Jawaban Tugas 5
+
+1. Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!
+Jika terdapat lebih dari satu style yang didefinisikan untuk suatu elemen, maka style yang akan diterapkan adalah yang memiliki prioritas yang lebih tinggi. urutan prioritasnya dari prioritas tertinggi ke rendah:
+    1. Inline style
+    2. External dan internal style sheets
+    3. Browser default
+
+2. Mengapa *responsive design* menjadi konsep yang penting dalam pengembangan aplikasi *web*? Berikan contoh aplikasi yang sudah dan belum menerapkan *responsive design*!
+Responsive web design merupakan metode sistem desain web yang memiliki tujuan untuk menghasilkan tampilan web yang terlihat baik pada seluruh perangkat seperti desktop, tablet, mobile, dan sebagainya. Responsive design menjadi konsep yang penting terutama untuk kenyamanan / pengalaman pengguna (User Experience). Hal tersebut sangat diperhatikan karena mengikuti perkembangan teknologi yang terus maju, kenyamanan pengguna menjadi aspek yang sangat penting karena bisa memengaruhi SEO, bounce rate, dan penggunaan aplikasi itu sendiri.
+
+3. Jelaskan perbedaan antara *margin*, *border*, dan *padding*, serta cara untuk mengimplementasikan ketiga hal tersebut!
+margin, border, dan padding termasuk pada box model css, yang membungkus setiap elemen HTML. Perbedaan ketiganya:
+    - Margin: mengosongkan area di sekitar border (transparan)
+    - Border: garis tepian yang membungkus konten dan padding-nya
+    - Padding: mengosongkan area di sekitar konten (transparan)
+contoh implementasinya:
+    div {
+    width: 320px; <!--panjang elemen-->
+    height: 50px; <!--tinggi elemen-->
+    padding: 10px; <!--padding di set berukuran 10 pixel-->
+    border: 5px solid gray; <!--border di set berukuran 5 pixel dan berwarna abu-abu-->
+    margin: 0; <!--margin di set berukuran 0 pixel-->
+    }
+
+4. Jelaskan konsep *flex box* dan *grid layout* beserta kegunaannya!
+- Flexbox adalah sistem tata letak satu dimensi di CSS yang digunakan untuk menyusun elemen dalam satu baris (horizontal) atau kolom (vertikal). Flexbox memudahkan pengaturan ukuran elemen agar menyesuaikan ruang yang tersedia, juga mendukung alignment elemen secara vertikal dan horizontal. Elemen-elemen secara otomatis dibesarkan atau diperkecil agar sesuai dengan ruang tempatnya, dan ruang antar elemen  didistribusikan secara proporsional. Flexbox ideal untuk layout yang sederhana, tapi kurang cocok untuk layout yang kompleks.
+- Grid Layout adalah sistem tata letak dua dimensi yang memungkinkan pengaturan elemen dalam baris dan kolom secara bersamaan. Grid memberikan kontrol penuh terhadap ukuran dan posisi elemen di area grid sehingga memungkinkan pembuatan tata letak kompleks dengan lebih presisi, cocok digunakan seperti pada halaman utama site atau dashboard. 
+
+5. Jelaskan bagaimana cara kamu mengimplementasikan *checklist* di atas secara *step-by-step* (bukan hanya sekadar mengikuti tutorial)!
+Berikut adalah checklist-checklist yang saya implementasikan:
+- Implementasikan fungsi untuk menghapus dan mengedit *product*.
+    - Fitur mengedit product diimplementasikan dengan mengimport reverse dan HttpResponseRedirect lalu membuat fungsi edit dalam views.py yang menerima parameter request dan id product agar terhubung dengan product tersebut. Kemudian untuk menampilkan halaman edit product, saya membuat berkas html edit_product.html, dan  saya mengonfigurasi routing fitur tersebut di urls.py pada main. Terakhir, saya menambahkan tombol edit pada main.html agar produk dapat diedit.
+    - Fitur delete product diimplementasikan dengan langkah yang mirip dengan fitur edit product, bedanya fitur delete tidak memerlukan berkas html. Setelah menambahkan fungsi delete_product pada views.py dan mengonfigurasi routingnya pada urls.py, saya menambahkan tombol delete pada main yang mengarah pada fungsi delete_product tersebut.
+- Kustomisasi desain pada *template* HTML yang telah dibuat pada tugas-tugas sebelumnya menggunakan CSS atau CSS framework (seperti Bootstrap, Tailwind, Bulma) dengan ketentuan sebagai berikut:
+    - Kustomisasi halaman *login*, *register*, dan tambah *product* semenarik mungkin.
+    saya mengiplementasikan ini dengan mengubah berbagai styles pada masing-masing templatenya, dan layout dari setiap elemnnya juga diatur agar terlihat rapi. Saya memilih serif sebagai font family utama untuk site ini, sementara warnanya saya pilih diantara biru-ungu yang tidak terlalu mencolok dan sedikit warna lain seperti magenta untuk aksen.
+    - Kustomisasi halaman daftar *product* menjadi lebih menarik dan *responsive*. Kemudian, perhatikan kondisi berikut:
+        - Jika pada aplikasi belum ada *product* yang tersimpan, halaman daftar *product* akan menampilkan gambar dan pesan bahwa belum ada *product* yang terdaftar.
+        ini saya implementasikan dengan menaruh gambar pada static/images. setelah itu, pada main, jika belum ada entry produk, gambar tersebut akan ditampilkan bersama dengan teks keterangan bahwa belum terdapat produk pada aplikasi. 
+        - Jika sudah ada *product* yang tersimpan, halaman daftar *product* akan menampilkan detail setiap *product* dengan menggunakan *card* (*tidak boleh sama persis dengan desain pada Tutorial!*).
+        Untuk mengimplementasikan ini, card untuk produk dibuat terlebih dahulu dalam berkas html baru, dan setelahnya saya mengupdate kode pada main agar untuk setiap iterasi product entry menampilkan card dengan keterangan produk tersebut. saya menyesuaikan card agar sesuai dengan field / atribut-atribut yang dimiliki kelas Product saya, yaitu menampilkan nama produk, harga, deskripsi, dan media produk tersebut.
+    - Untuk setiap ***card product***, buatlah dua buah *button* untuk mengedit dan menghapus *product* pada ***card*** tersebut!
+    saya menambahkan kedua button tersebut pada card_product. saya mengubah beberapa hal yaitu posisinya, bentuknya, dan warnanya.
+    - Buatlah *navigation bar* (*navbar*) untuk fitur-fitur pada aplikasi yang *responsive* terhadap perbedaan ukuran *device*, khususnya *mobile* dan *desktop*.
+    Saya menambahkan navigation bar dengan membuat berkas html yang berisi tampilan navbar tersebut dalam desktop web dan mobile web. setelah itu, saya memasukkan navbar ke dalam halaman-halaman yang diperlukan, seperti main, create_product_entry, dan edit_product.

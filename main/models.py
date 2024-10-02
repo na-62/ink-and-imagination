@@ -9,7 +9,3 @@ class Product(models.Model):
     price = models.IntegerField()
     description = models.TextField()
     media = models.TextField()
-
-    @property
-    def is_professional(self):
-        return self.price >= 500000
