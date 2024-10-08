@@ -6,8 +6,17 @@
         </div>
         <div class="hidden md:flex items-center">
           {% if user.is_authenticated %}
+            <a href="{% url 'main:show_main' %}" class="text-left text-white py-2 px-3 transition duration-300" style="font-family: 'Lora', serif;">
+                Home
+            </a>
+            <a href="{% url 'main:show_main' %}" class="text-left text-white py-2 px-3 transition duration-300" style="font-family: 'Lora', serif;">
+                Products
+            </a>
+            <a href="{% url 'main:show_main' %}" class="text-left text-white py-2 px-3 pr-20 transition duration-300" style="font-family: 'Lora', serif;">
+                Profile
+            </a>
             <span class="text-gray-300 mr-4" style="font-family: 'Garamond', serif;">Welcome, {{ user.username }}</span>
-            <a href="{% url 'main:logout' %}" class="text-center text-white py-2 px-4 rounded transition duration-300" style="font-family: 'Lora', serif; background-color: #c94177;">
+            <a href="{% url 'main:logout' %}" class="text-center text-white py-2 px-4 rounded-md transition duration-300" style="font-family: 'Lora', serif; background-color: #c94177;">
               Logout
             </a>
           {% else %}
@@ -32,8 +41,17 @@
     <div class="mobile-menu hidden md:hidden  px-4 w-full md:max-w-full">
       <div class="pt-2 pb-3 space-y-1 mx-auto">
         {% if user.is_authenticated %}
+          <a href="{% url 'main:show_main' %}" class="block text-left text-white py-2 px-4 transition duration-300 mb-2" style="font-family: 'Lora', serif;">
+            Home
+          </a>
+          <a href="{% url 'main:show_main' %}" class="block text-left text-white py-2 px-4 transition duration-300 mb-2" style="font-family: 'Lora', serif;">
+            Products
+          </a>
+          <a href="{% url 'main:show_main' %}" class="block text-left text-white py-2 px-4 transition duration-300 mb-2" style="font-family: 'Lora', serif;">
+            Profile
+          </a>
           <span class="block text-gray-300 px-3 py-2">Welcome, {{ user.username }}</span>
-          <a href="{% url 'main:logout' %}" class="block text-center bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded transition duration-300" style="font-family: 'Lora', serif; background-color: #993f74;">
+          <a href="{% url 'main:logout' %}" class="block text-center text-white py-2 px-4 rounded transition duration-300 mb-2" style="font-family: 'Lora', serif; background-color: #993f74;">
             Logout
           </a>
         {% else %}
