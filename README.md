@@ -167,3 +167,41 @@ Berikut adalah checklist-checklist yang saya implementasikan:
     saya menambahkan kedua button tersebut pada card_product. saya mengubah beberapa hal yaitu posisinya, bentuknya, dan warnanya.
     - Buatlah *navigation bar* (*navbar*) untuk fitur-fitur pada aplikasi yang *responsive* terhadap perbedaan ukuran *device*, khususnya *mobile* dan *desktop*.
     Saya menambahkan navigation bar dengan membuat berkas html yang berisi tampilan navbar tersebut dalam desktop web dan mobile web. setelah itu, saya memasukkan navbar ke dalam halaman-halaman yang diperlukan, seperti main, create_product_entry, dan edit_product.
+
+
+
+===========================================================================
+
+Jawaban Tugas 6
+
+1. Jelaskan manfaat dari penggunaan JavaScript dalam pengembangan aplikasi web!
+Javascript bermanfaat karena memungkinkan interaksi yang dinamis dan responsif di web, seperti animasi, validasi formulir, dan pemanggilan API tanpa memuat ulang halaman.
+
+2. Jelaskan fungsi dari penggunaan `await` ketika kita menggunakan `fetch()`! Apa yang akan terjadi jika kita tidak menggunakan `await`?
+await digunakan untuk menunggu hingga proses pengambilan data selesai sebelum melanjutkan ke baris kode berikutnya. Jika await tidak digunakan, kode akan terus berjalan sebelum respons fetch() diterima, sehingga dapat menyebabkan error karena penggunaan data yang belum ada.
+
+3. Mengapa kita perlu menggunakan *decorator* `csrf_exempt` pada *view* yang akan digunakan untuk AJAX `POST`?
+Decorator csrf_exempt membuat Django tidak perlu mengecek keberadaan csrf_token pada POST request yang dikirimkan ke fungsi ini, karena memudahkan implementasi AJAX agar berjalan lancar.
+
+4. Pada tutorial PBP minggu ini, pembersihan data *input* pengguna dilakukan di belakang (*backend*) juga. Mengapa hal tersebut tidak dilakukan di *frontend* saja?
+Karena pembersihan data di backend lebih aman dan dapat memastikan validasi tetap berjalan meskipun pengguna memodifikasi skrip di frontend. I
+
+5. Jelaskan bagaimana cara kamu mengimplementasikan *checklist* di atas secara *step-by-step* (bukan hanya sekadar mengikuti tutorial)!
+checklist tugas:
+    - AJAX GET
+        - Ubahlah kode cards data mood agar dapat mendukung AJAX GET.
+        Saya melakukan ini dengan mengubah main.html, yaitu mengganti baris kode kondisional yang sebelumnya akan menampilkan card data product dengan <div id="product_entry_cards"></div> yang akan menampilkan setiap card berdasarkan id yang di fetch() dengan show_json()
+        - Lakukan pengambilan data mood menggunakan AJAX GET. Pastikan bahwa data yang diambil hanyalah data milik pengguna yang logged-in.
+        Untuk mengambil data pengguna yang log in, saya mengedit views.py pada main, menggunakan fungsi show_json yang sudah ada. dengan memfilter menggunakan user pada data yang ada, data yang diambil hanya data user yang logged in. Kemudian saya menambahkan fungsi getProductEntries() yang melakukan fetch() dengan show_json() untuk mendapat data user tersebut.
+        
+    - AJAX POST
+        - Buatlah sebuah tombol yang membuka sebuah modal dengan form untuk menambahkan mood.
+        Saya menambahkan tombol dengan nama "Add New Product By AJAX", lalu saya menambahkan event listener dengan javascript yang akan mengarahkan tombol ke fungsi menambahkan product menggunakan AJAX. Saya juga membuat beberapa fungsi untuk membuka dan menutup modal yang berisi form untuk menambahkan mood dengan AJAX. Modal ini akan terbuka saat tombol "Add New Product By AJAX" diklik, dan akan ditutup setelah selesai digunakan. Jika terdapat eror, akan ditampilkan pesan eror.
+        - Buatlah fungsi view baru untuk menambahkan mood baru ke dalam basis data.
+        saya membuat fungsi view baru bernama add_product_ajax(). fungsi ini akan mengambil input user tentang product baru setelah membersihkan kontennya dengan strip_tags(). fungsi ini akan langsung membuat instance Productnya setelah mendapat semua inputnya. Fungsi ini menggunakan decorator @csrf_exempt dan @require_POST agar hanya bisa menerima metode POST.
+        - Buatlah path /create-ajax/ yang mengarah ke fungsi view yang baru kamu buat.
+        saya membuat routing pada urls dalam main yang mengarah ke fungsi tersebut dengan nama create-ajax/.
+        - Hubungkan form yang telah kamu buat di dalam modal kamu ke path /create-ajax/.
+        form di dalam modal dikirim melalui JavaScript menggunakan fetch(). saya membuat fungsi addProductEntry() yang menggunakan fetch() untuk mengirim data form ke path /create-ajax/ sebagai POST request, menutup modal, dan membersihkan input setelah berhasil menambahkan product.
+        - Lakukan refresh pada halaman utama secara asinkronus untuk menampilkan daftar mood terbaru tanpa reload halaman utama secara keseluruhan.
+        Untuk ini, saya membuat fungsi bernama refreshProductEntries(). Fungsi ini mengambil data-data cards yang ada lalu menampilkannya setelah dibersihkan. fungsi ini akan dipanggil setelah pengguna mengclose form modal untuk menambahkan product sehingga product yang baru langsung muncul pada halaman tanpa refresh.
